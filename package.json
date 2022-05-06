@@ -1,0 +1,21 @@
+{
+  "name": "tw-eew",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "猴子 <70706886+a3510377@users.noreply.github.com>",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "ts-node": "^10.7.0",
+    "typescript": "^4.6.4",
+    "ws": "^8.6.0"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.3"
+  }
+}
