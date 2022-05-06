@@ -15,10 +15,17 @@ export class EEWService extends WebSocket {
     if (!process.env.API_KEY) throw new Error("No API KEY");
 
     this.on("open", () => {
+      this.plugins.forEach((_) => _.onOpenEvent.bind(this, this)());
       this.onOpenEvent.bind(this);
     })
-      .on("message", this.onMessageEvent.bind(this))
-      .on("close", this.onCloseEvent.bind(this));
+      .on("message", () => {
+        this.plugins.forEach((_) => _.onMessageEvent.bind(this, this)());
+        this.onMessageEvent.bind(this);
+      })
+      .on("close", () => {
+        this.plugins.forEach((_) => _.onCloseEvent.bind(this, this)());
+        this.onCloseEvent.bind(this);
+      });
   }
   /**open event */
   protected onOpenEvent() {
@@ -35,7 +42,7 @@ export class EEWService extends WebSocket {
     );
   }
   /**message event */
-  protected onMessageEvent(_data: RawData, isBinary: boolean) {
+  protected onMessageEvent(_data: RawData) {
     let data = JSON.parse(_data.toString());
 
     if (data.Function === "earthquake") {
